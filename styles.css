@@ -482,3 +482,171 @@ body {
 /* 懒加载：占位底色与淡入 */
 .gallery-card[data-bg] { background-color: #182236; }
 .gallery-card { transition: background-image 0.25s ease, opacity 0.25s ease; }
+
+/* 画廊分页（每页 12 张，样式对齐媒体中心） */
+.gallery-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 2.25rem 0 1.5rem;
+}
+.gallery-pager .pager-arrow {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(110, 231, 255, 0.22);
+  background: rgba(9, 17, 35, 0.7);
+  color: #cfe8ff;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.gallery-pager .pager-arrow:hover:not(:disabled) {
+  border-color: #6ee7ff;
+  color: #6ee7ff;
+  background: rgba(0, 212, 255, 0.12);
+}
+.gallery-pager .pager-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.gallery-pager .pager-pages {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.gallery-pager .pager-num {
+  min-width: 42px;
+  height: 42px;
+  padding: 0 0.6rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(9, 17, 35, 0.55);
+  color: rgba(233, 240, 255, 0.82);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+.gallery-pager .pager-num:hover {
+  border-color: rgba(110, 231, 255, 0.6);
+  color: #6ee7ff;
+}
+.gallery-pager .pager-num.active {
+  background: linear-gradient(135deg, #00d4ff, #6ee7ff);
+  border-color: transparent;
+  color: #04121f;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.28);
+}
+.gallery-pager .pager-ellipsis {
+  color: rgba(207, 232, 255, 0.5);
+  padding: 0 0.15rem;
+}
+@media (max-width: 560px) {
+  .gallery-pager { gap: 0.35rem; }
+  .gallery-pager .pager-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+  .gallery-pager .pager-num {
+    min-width: 34px;
+    height: 36px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    padding: 0 0.4rem;
+  }
+}
+
+/* 画廊搜索：控件固定在顶栏右侧（顶栏 sticky，滚动时始终可见） */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.gallery-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 38px;
+  padding: 0 0.5rem 0 0.72rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(9, 17, 35, 0.72);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.gallery-search:focus-within {
+  border-color: rgba(110, 231, 255, 0.7);
+  background: rgba(9, 17, 35, 0.92);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.14);
+}
+.gallery-search .search-icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: rgba(207, 232, 255, 0.62);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+.gallery-search:focus-within .search-icon { stroke: #6ee7ff; }
+.gallery-search .search-input {
+  width: 152px;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #e9f0ff;
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+.gallery-search .search-input::placeholder { color: rgba(207, 232, 255, 0.45); }
+.gallery-search .search-clear {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #dfe9ff;
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.gallery-search .search-clear:hover { background: rgba(0, 212, 255, 0.4); color: #04121f; }
+.gallery-search .search-clear[hidden] { display: none; }
+.gallery-search-summary {
+  margin: 0 0 1rem;
+  color: #6ee7ff;
+  font-size: 0.92rem;
+}
+.gallery-search-summary[hidden] { display: none; }
+.gallery-empty {
+  margin: 3.5rem 0;
+  text-align: center;
+  color: rgba(207, 232, 255, 0.6);
+  font-size: 1rem;
+}
+.gallery-empty[hidden] { display: none; }
+@media (max-width: 860px) {
+  .header-inner {
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    padding: 0.85rem 0;
+  }
+  .header-right {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .gallery-search { flex: 1; min-width: 0; }
+  .gallery-search .search-input { width: 100%; }
+}
