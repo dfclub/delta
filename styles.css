@@ -355,6 +355,7 @@ body {
   color: rgba(226, 232, 240, 0.72);
 }
 @media (max-width: 900px) {
+  .team-grid,
   .stats-grid,
   .carousel-track,
   .community-grid,
@@ -373,6 +374,10 @@ body {
   }
 }
 @media (max-width: 640px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
   .hero-card {
     padding: 2rem;
   }
