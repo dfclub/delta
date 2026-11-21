@@ -26,7 +26,7 @@
     <section class="section log-section">
       <div class="container">
         <h1>网站日志</h1>
-        <p>打粥社网站的更新日志。每次改动都会在这里追加一条：什么日期、改了什么、影响是什么，按时间倒序排列，最新的一条在最上面。</p>
+        <p>打粥社网站的更新日志。每次改动都会在这里追加一条：什么时间、改了什么、影响是什么，按时间倒序排列，最新的一条在最上面。时间精确到小时和分钟；2026-11-08 之前的几条属于建站初期，只留存了日期。</p>
         <div class="fixed-actions">
           <a class="btn btn-secondary back-to-top" href="#top">回到顶部</a>
         </div>
@@ -35,92 +35,97 @@
         </div>
         <div class="log-list">
           <article class="log-entry">
-            <time>2026-11-21</time>
+            <time datetime="2026-11-21T21:50">2026-11-21 21:50</time>
+            <h3>日志条目加上精确时间</h3>
+            <p>日志页每条记录的时间改为「日期 + 小时:分钟」，并补进 <code>datetime</code> 属性；已有条目按 GitHub 提交时间回填，另有仓库脚本、部署说明等文件的创建时间作为依据。今后每条记录都精确到分钟。</p>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-11-21T21:17">2026-11-21 21:17</time>
             <h3>手机端团队版块改为单列</h3>
             <p>屏幕宽度 900px 以下时，首页与团队页的成员网格由三列改为一行只显示一个成员，640px 以下进一步收紧卡片间距；桌面端仍保持三列。样式引用同步升到 styles.css?v=7，避免手机继续读取旧缓存。</p>
           </article>
           <article class="log-entry">
-            <time>2026-11-21</time>
+            <time datetime="2026-11-21T21:12">2026-11-21 21:12</time>
+            <h3>网站日志改为逐条记录</h3>
+            <p>本页从现在起记录每一次站点改动，写明时间、内容和影响；此前上线以来的改动也一次性回填到下面各条。</p>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-11-21T21:06">2026-11-21 21:06</time>
             <h3>标签图标换上轻量 PNG</h3>
             <p>标签栏图标原来是一份 1.9 MB 的描摹 SVG，而且只有首页声明了它，其他页面的标签是空白的。现已换成 64×64、约 2 KB 的 favicon-64.png，首页、团队、画廊、日志四个页面统一引用，标签图标都能正常显示，加载也快了一个数量级。</p>
           </article>
           <article class="log-entry">
-            <time>2026-11-21</time>
+            <time datetime="2026-11-21T20:55">2026-11-21 20:55</time>
             <h3>首页团队版块精简为三人</h3>
             <p>首页只保留社长、副社长、资产管理三张成员卡；火力、突击与两位鼠鼠移到团队详情页，点首页的「查看更多」进入 team.html 可以看到全部成员。</p>
           </article>
           <article class="log-entry">
-            <time>2026-11-21</time>
+            <time datetime="2026-11-21T20:48">2026-11-21 20:48</time>
             <h3>新增副社长 锦鲤~嫣然~（XJY）</h3>
             <p>在社长之后补入副社长卡片：负责周常开黑的排期、活动报名和新人带队，战术上常做副指挥，缺人时补位，崩盘时先把心态稳住。</p>
           </article>
           <article class="log-entry">
-            <time>2026-11-21</time>
+            <time datetime="2026-11-21T20:39">2026-11-21 20:39</time>
             <h3>团队介绍重写，补齐六人</h3>
             <p>团队详情页补齐为社长、副社长、资产管理、火力、突击与两位鼠鼠，每人一段 100–140 字的详细人物介绍；首页同步一份 60 字左右的短版简介，长短两版口径一致。</p>
           </article>
           <article class="log-entry">
-            <time>2026-11-21</time>
-            <h3>网站日志改为逐条记录</h3>
-            <p>本页从现在起记录每一次站点改动，写明日期、内容和影响；此前上线以来的改动也一次性回填到下面各条。</p>
-          </article>
-          <article class="log-entry">
-            <time>2026-11-16</time>
+            <time datetime="2026-11-16T22:04">2026-11-16 22:04</time>
             <h3>修正团队页多余标签</h3>
             <p>team.html 里一个多余的 &lt;/article&gt; 闭合标签已删除，页面结构恢复干净，不再有错位的闭合层级。</p>
           </article>
           <article class="log-entry">
-            <time>2026-11-14</time>
+            <time datetime="2026-11-14T12:51">2026-11-14 12:51</time>
             <h3>自定义域名尝试（已撤回）</h3>
             <p>当天提交过 CNAME 文件做自定义域名测试，同日删除；站点继续使用 https://dfclub.github.io/delta/ 。</p>
           </article>
           <article class="log-entry">
-            <time>2026-11-08</time>
+            <time datetime="2026-11-08T21:20">2026-11-08 21:20</time>
             <h3>同名图片覆盖修复</h3>
             <p>画廊里有 16 组「同名但不同图」的 png/jpg（丛林派对、乌姆斯运河、回响、蝶变时刻赛季KV 等），转格式时原 jpg 会被同名文件覆盖。现已把原 jpg 另存为「X_jpg.jpg」并更新卡片引用，281 张卡片与原图、缩略图一一对应，无丢失、无重复。</p>
           </article>
           <article class="log-entry">
-            <time>2026-11-08</time>
+            <time datetime="2026-11-08T21:12">2026-11-08 21:12</time>
             <h3>画廊分页与搜索上线</h3>
             <p>画廊改为每页 12 张，页面底部是游戏官网媒体中心同款换页控件（‹ 页码 … ›，当前页青色高亮、首尾箭头置灰）；搜索框固定在页面右上角，按图片名称即时筛选，支持中文，结果同样分页；关闭懒加载，打开画廊只加载当前页。</p>
           </article>
           <article class="log-entry">
-            <time>2026-11-08</time>
-            <h3>站点迁移到 GitHub Pages</h3>
-            <p>公网地址改为 https://dfclub.github.io/delta/ ，不再依赖本机开机与 Tailscale；首次提交 573 个文件 / 145 MB，并附 .nojekyll（避免 Jekyll 忽略中文目录）与 .gitignore（排除备份文件）。</p>
-          </article>
-          <article class="log-entry">
-            <time>2026-11-08</time>
-            <h3>图片体积治理</h3>
-            <p>原始站 589 个文件 / 2101 MB，超过 GitHub 单文件 100 MB、仓库 1 GB 的限制。所有宽度大于 1920 的图片等比压到 1920 宽 JPG，画廊 PNG 统一转 JPG（q88、白底），整站降到约 145 MB 才具备上线条件。</p>
-          </article>
-          <article class="log-entry">
-            <time>2026-11-08</time>
+            <time datetime="2026-11-08T17:46">2026-11-08 17:46</time>
             <h3>新增站点入口页 home.html</h3>
             <p>增加一页独立入口页，作为站点总览入口，自带内联图标、不依赖主站样式。</p>
           </article>
           <article class="log-entry">
-            <time>2026-10-31</time>
+            <time datetime="2026-11-08T12:17">2026-11-08 12:17</time>
+            <h3>站点迁移到 GitHub Pages</h3>
+            <p>公网地址改为 https://dfclub.github.io/delta/ ，不再依赖本机开机与 Tailscale；首次提交 573 个文件 / 145 MB，并附 .nojekyll（避免 Jekyll 忽略中文目录）与 .gitignore（排除备份文件）。</p>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-11-08T11:49">2026-11-08 11:49</time>
+            <h3>图片体积治理</h3>
+            <p>原始站 589 个文件 / 2101 MB，超过 GitHub 单文件 100 MB、仓库 1 GB 的限制。所有宽度大于 1920 的图片等比压到 1920 宽 JPG，画廊 PNG 统一转 JPG（q88、白底），整站降到约 145 MB 才具备上线条件。</p>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-10-31T19:19">2026-10-31 19:19</time>
             <h3>网站部署上线（旧方案）</h3>
             <p>用本机 XAMPP（8081 端口）配合 Tailscale Funnel 对外，地址为 https://mcserver.tailaf01bf.ts.net:8443/ 。2026-11-08 起已被 GitHub Pages 取代，该地址仅作历史记录。</p>
           </article>
           <article class="log-entry">
-            <time>2026-08-02</time>
+            <time datetime="2026-08-02">2026-08-02</time>
             <h3>网站日志页面已创建</h3>
             <p>新增独立日志页面，并将日志链接加入主页、团队页与画廊页导航。</p>
           </article>
           <article class="log-entry">
-            <time>2026-08-01</time>
+            <time datetime="2026-08-01">2026-08-01</time>
             <h3>团队成员页面上线</h3>
             <p>新增团队成员介绍页，并在主页团队区块增加“查看更多”按钮。</p>
           </article>
           <article class="log-entry">
-            <time>2026-07-31</time>
+            <time datetime="2026-07-31">2026-07-31</time>
             <h3>画廊与页面结构优化</h3>
             <p>修复画廊页面 HTML 结构并优化页面背景和按钮布局。</p>
           </article>
           <article class="log-entry">
-            <time>2026-07-30</time>
+            <time datetime="2026-07-30">2026-07-30</time>
             <h3>网站创建</h3>
             <p>社长创建了打粥社网站。</p>
           </article>
