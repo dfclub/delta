@@ -60,6 +60,11 @@
             <p>联系卡片下方改成与我的世界官网一致的两栏版式：左列五条填写指南与「恶意骚扰或发送垃圾邮件将被永久拉黑」提示，右列表单含昵称、联系邮箱、主题（只保留 Bug 反馈）、详细内容与截图上传（最多 3 张、合计 10MB），提交由 FormSubmit 同时转发到 163 与 QQ 两个邮箱；「复制内容，自己发我」保留为兜底。原 Q 群、QQ 频道、社长 QQ 三张卡片未动，样式引用升到 <code>styles.css?v=9</code>。</p>
           </article>
           <article class="log-entry">
+            <time datetime="2026-11-22T16:39">2026-11-22 16:39</time>
+            <h3>去掉 Tailscale 备用地址，入口页只留 GitHub Pages</h3>
+            <p>两个站已全部改为纯静态、只由 GitHub Pages 托管，本机隧道不再对外，因此 <code>home.html</code> 里 3 条 net 结尾的备用地址（含 MC 后台备用）全部撤下，三角洲的备用改为「现在可用」，MC 补上 <code>https://dfclub.github.io/mc/</code>；后台卡片改为仅本机的 8080 地址，访问须知同步改成 4 条。样式与图片未动。</p>
+          </article>
+          <article class="log-entry">
             <time datetime="2026-11-22T11:46">2026-11-22 11:46</time>
             <h3>联系版块新增「意见反馈」</h3>
             <p>首页联系卡片下方新增一块反馈区：写两句话点「直接提交」，内容由 FormSubmit 转发到 163 与 QQ 两个邮箱，访客不用登录、也不用装邮件程序；另有「复制内容，自己发我」按钮兜底。样式沿用联系卡片的深色圆角风格，手机端按钮占满一行，样式引用升到 <code>styles.css?v=8</code> 防止旧缓存。</p>
