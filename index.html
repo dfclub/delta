@@ -6,7 +6,7 @@
   <title>打粥社 · 三角洲行动工作室</title>
   <meta name="description" content="打粥社专注于三角洲行动游戏内容、战术资讯与玩家社区。">
   <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
-  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="styles.css?v=9">
 </head>
 <body>
   <div class="page-bg"></div>
@@ -145,16 +145,55 @@
             <span>QQ号:2365699927</span>
           </div>
         </div>
-        <div class="feedback-box">
-          <h3>意见反馈</h3>
-          <p class="feedback-sub">网址打不开、想加个链接、手机上哪儿别扭 —— 写在这儿直接提交，会同时发到两个邮箱，不用登录任何账号。</p>
-          <label class="feedback-label" for="fb-text">想说的话</label>
-          <textarea id="fb-text" rows="4" placeholder="例如：三角洲备用 2 打不开了；想加一个 B 站主页；手机上看字太小"></textarea>
-          <div class="feedback-actions">
-            <button type="button" class="fb-btn fb-btn--primary" id="fb-send">直接提交</button>
-            <button type="button" class="fb-btn" id="fb-copy">复制内容，自己发我</button>
+        <div class="fb-card">
+          <div class="fb-rules">
+            <h3>
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+              填写指南
+            </h3>
+            <ul class="fb-rules-list">
+              <li><span class="fb-rule-num">1</span><span>请务必填写真实有效的<strong>邮箱地址</strong>，以便接收回复。</span></li>
+              <li><span class="fb-rule-num">2</span><span>标题请简明扼要，如“<strong>[Bug反馈]</strong> 画廊图片打不开”。</span></li>
+              <li><span class="fb-rule-num">3</span><span>详细描述中请包含<strong>出现问题的页面、设备、复现步骤</strong>。</span></li>
+              <li><span class="fb-rule-num">4</span><span>页面异常请附上<strong>截图</strong>，方便定位问题。</span></li>
+              <li><span class="fb-rule-num">5</span><span>处理时间通常为<strong>1-3个工作日</strong>，请耐心等待。</span></li>
+            </ul>
+            <div class="fb-note">
+              <p>注：恶意骚扰或发送垃圾邮件将被永久拉黑。</p>
+            </div>
           </div>
-          <p class="feedback-tip" id="fb-tip" role="status" aria-live="polite"></p>
+
+          <form class="fb-form" id="fb-form">
+            <div class="fb-group">
+              <label for="fb-name">您的昵称</label>
+              <input id="fb-name" name="name" type="text" placeholder="怎么称呼你" required>
+            </div>
+            <div class="fb-group">
+              <label for="fb-email">联系邮箱</label>
+              <input id="fb-email" name="email" type="email" placeholder="用于接收回复的邮箱地址" required>
+            </div>
+            <div class="fb-group">
+              <label for="fb-subject">主题</label>
+              <select id="fb-subject" name="subject">
+                <option value="bug">Bug反馈</option>
+              </select>
+            </div>
+            <div class="fb-group">
+              <label for="fb-text">详细内容</label>
+              <div class="fb-editor">
+                <textarea id="fb-text" rows="5" placeholder="哪个页面、什么设备、怎么复现，写清楚一点" required></textarea>
+                <div class="fb-preview" id="fb-preview"></div>
+                <div class="fb-editor-bar">
+                  <input class="fb-file" type="file" id="fb-file" accept="image/*" multiple>
+                  <button class="fb-attach" id="fb-attach" type="button">添加图片</button>
+                  <span class="fb-hint" id="fb-hint">最多3张，合计≤10MB</span>
+                </div>
+              </div>
+            </div>
+            <button class="fb-submit" id="fb-send" type="submit"><span>直接提交</span></button>
+            <button class="fb-copy" id="fb-copy" type="button">复制内容，自己发我</button>
+            <p class="fb-tip" id="fb-tip" role="status" aria-live="polite"></p>
+          </form>
         </div>
       </div>
     </section>
@@ -162,18 +201,31 @@
   <footer class="site-footer">
     <div class="container">© 2026 打粥社 · 三角洲行动玩家工作室</div>
   </footer>
-  <!-- 意见反馈：页面纯静态，交给 FormSubmit 转发到两个邮箱，访客不用登录 -->
+  <!-- 意见反馈：版式沿用我的世界官网的「联系我们」，页面纯静态，交给 FormSubmit 转发到两个邮箱 -->
   <script>
     (function () {
       var ENDPOINTS = [
         'https://formsubmit.co/ajax/guaidao1412_1996@163.com',
         'https://formsubmit.co/ajax/2365699927@qq.com'
       ];
+      var form = document.getElementById('fb-form');
       var box = document.getElementById('fb-text');
+      var tipEl = document.getElementById('fb-tip');
       var sendBtn = document.getElementById('fb-send');
       var copyBtn = document.getElementById('fb-copy');
-      var tipEl = document.getElementById('fb-tip');
-      if (!box || !sendBtn) return;
+      var nameEl = document.getElementById('fb-name');
+      var emailEl = document.getElementById('fb-email');
+      var subjectEl = document.getElementById('fb-subject');
+      var fileEl = document.getElementById('fb-file');
+      var attachBtn = document.getElementById('fb-attach');
+      var previewEl = document.getElementById('fb-preview');
+      var hintEl = document.getElementById('fb-hint');
+      if (!form || !box) return;
+
+      var MAX_FILES = 3;
+      var MAX_SIZE = 5 * 1024 * 1024;
+      var MAX_TOTAL = 10 * 1024 * 1024;
+      var files = [];
 
       function tip(msg) { if (tipEl) tipEl.textContent = msg || ''; }
 
@@ -183,27 +235,76 @@
         return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
       }
 
-      sendBtn.addEventListener('click', function () {
+      /* 图片：最多 3 张、单张 ≤5MB、合计 ≤10MB（FormSubmit 附件上限） */
+      function addFiles(list) {
+        for (var i = 0; i < list.length; i++) {
+          var f = list[i];
+          if (files.length >= MAX_FILES) break;
+          if (!f.type || f.type.indexOf('image/') !== 0) continue;
+          if (f.size > MAX_SIZE) { tip('“' + f.name + '”超过5MB，没加上'); continue; }
+          var total = f.size;
+          for (var j = 0; j < files.length; j++) total += files[j].size;
+          if (total > MAX_TOTAL) { tip('图片合计超过10MB，“' + f.name + '”没加上'); continue; }
+          files.push(f);
+        }
+        renderPreview();
+      }
+
+      function renderPreview() {
+        if (!previewEl) return;
+        previewEl.innerHTML = '';
+        files.forEach(function (f, i) {
+          var item = document.createElement('div');
+          item.className = 'fb-preview-item';
+          var img = document.createElement('img');
+          img.src = URL.createObjectURL(f);
+          img.alt = f.name;
+          var del = document.createElement('button');
+          del.type = 'button';
+          del.textContent = '×';
+          del.setAttribute('aria-label', '移除图片');
+          del.addEventListener('click', function () {
+            files.splice(i, 1);
+            renderPreview();
+          });
+          item.appendChild(img);
+          item.appendChild(del);
+          previewEl.appendChild(item);
+        });
+        previewEl.classList.toggle('active', files.length > 0);
+        if (hintEl) hintEl.textContent = files.length > 0 ? files.length + '/3 张' : '最多3张，合计≤10MB';
+      }
+
+      if (attachBtn && fileEl) {
+        attachBtn.addEventListener('click', function () { fileEl.click(); });
+        fileEl.addEventListener('change', function () {
+          addFiles(fileEl.files);
+          fileEl.value = '';
+        });
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!box.value.trim()) { tip('先写两句再提交'); box.focus(); return; }
         if (sendBtn.disabled) return;
-        var text = box.value.trim();
-        if (!text) { tip('先写两句再提交'); box.focus(); return; }
         sendBtn.disabled = true;
         tip('正在提交…');
 
-        var payload = {
-          '内容': text,
-          '_subject': '【三角洲官网反馈】' + text.replace(/\s+/g, ' ').slice(0, 24),
-          '_captcha': 'false',
-          '_template': 'table',
-          '页面': location.href,
-          '时间': stamp()
-        };
+        var fd = new FormData();
+        fd.append('昵称', nameEl ? nameEl.value.trim() : '');
+        fd.append('联系邮箱', emailEl ? emailEl.value.trim() : '');
+        fd.append('主题', subjectEl && subjectEl.selectedIndex >= 0 ? subjectEl.options[subjectEl.selectedIndex].text : '');
+        fd.append('详细内容', box.value.trim());
+        fd.append('页面', location.href);
+        fd.append('时间', stamp());
+        fd.append('_subject', '【三角洲官网反馈】' + box.value.trim().replace(/\s+/g, ' ').slice(0, 24));
+        fd.append('_captcha', 'false');
+        fd.append('_template', 'table');
+        files.forEach(function (f, i) { fd.append('附件' + (i + 1), f, f.name); });
+
         var jobs = ENDPOINTS.map(function (url) {
-          return fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify(payload)
-          }).then(function (res) { return res.json(); })
+          return fetch(url, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } })
+            .then(function (res) { return res.json(); })
             .then(function (data) { return String(data.success) === 'true'; })
             .catch(function () { return false; });
         });
@@ -213,22 +314,31 @@
           var ok = 0;
           for (var i = 0; i < results.length; i++) { if (results[i]) ok++; }
           if (ok === results.length) {
-            box.value = '';
+            form.reset();
+            files = [];
+            renderPreview();
             tip('已提交，两个邮箱都会收到');
           } else if (ok > 0) {
-            box.value = '';
+            form.reset();
+            files = [];
+            renderPreview();
             tip('已提交，但有一个邮箱没送达');
           } else {
-            tip('两个邮箱都没送达，先复制内容发我');
+            tip('两个邮箱都没送达，点下面「复制内容」发我');
           }
         });
       });
 
       if (copyBtn) {
         copyBtn.addEventListener('click', function () {
-          var text = box.value.trim();
-          if (!text) { tip('先写两句再复制'); box.focus(); return; }
-          var full = text + '\n\n—— 来自 ' + location.href + '  ' + stamp();
+          if (!box.value.trim()) { tip('先写两句再复制'); box.focus(); return; }
+          var nick = nameEl ? nameEl.value.trim() : '';
+          var mail = emailEl ? emailEl.value.trim() : '';
+          var head = [];
+          if (nick) head.push('昵称：' + nick);
+          if (mail) head.push('邮箱：' + mail);
+          var full = (head.length ? head.join(' / ') + '\n' : '') + box.value.trim() +
+            '\n\n—— 来自三角洲官网 ' + location.href + '，' + stamp();
           var done = function () { tip('已复制，粘贴到 QQ 发我就行'); };
           if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(full).then(done, function () { fallback(full); });
