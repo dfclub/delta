@@ -7,11 +7,12 @@
 
 | 用途 | 地址 | 状态 |
 | --- | --- | --- |
-| **主入口（GitHub Pages）** | <https://dfclub.github.io/delta/> | 稳定，全球可访问 |
-| 本地预览 | <http://127.0.0.1:8081/> | 仅本机，改文件即时生效 |
-| 备用（Tailscale Funnel） | <https://mcserver.tailaf01bf.ts.net:8443/> | 依赖本机开机，白天可用 |
+| **唯一公网入口（GitHub Pages）** | <https://dfclub.github.io/delta/> | 稳定，关机也能访问 |
+| 本地预览 | <http://127.0.0.1:8081/> | 仅本机，不上公网 |
 | 计划中（自定义域名） | <https://delta.dfclub.eu.org/> | 等 eu.org 人工审核，暂不可用 |
-| 历史地址（Cloudflare Worker） | <https://delta.dfclub.workers.dev/> | 国内 DNS 污染，基本不可用 |
+| 历史地址（Cloudflare Worker） | <https://delta.dfclub.workers.dev/> | 国内 DNS 污染，已废弃 |
+
+> 本站已全面静态化，公网只走 GitHub Pages 这一条通道；Tailscale Funnel 隧道（`mcserver.tailaf01bf.ts.net:8443`）已停用，本机 Apache 只用于本地预览。
 
 ## 仓库信息
 
