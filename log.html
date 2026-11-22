@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>打粥社 · 网站日志</title>
   <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
-  <link rel="stylesheet" href="styles.css?v=11">
+  <link rel="stylesheet" href="styles.css?v=12">
 </head>
 <body id="top">
   <div class="page-bg"></div>
@@ -35,6 +35,10 @@
         </div>
         <div class="log-list">
           <article class="log-entry">
+            <time datetime="2026-11-22T18:21">2026-11-22 18:21</time>
+            <h3>修掉联系版块多出的一整块半透明背景</h3>
+            <p>换肤时把 .contact-card 也当成卡片加了玻璃底，可这个外层只负责限宽居中，结果「联系打粥社」标题和三张联系卡背后多出一大块矩形，与页面底色分层。现在把它从玻璃样式组里去掉：标题与联系卡直接落在页面背景上，只有三张联系卡和下方反馈卡是玻璃卡。样式引用升到 styles.css?v=12。</p>
+          </article>          <article class="log-entry">
             <time datetime="2026-11-22T17:59">2026-11-22 17:59</time>
             <h3>整站配色换成我的世界官网那套</h3>
             <p>全站从「近黑底 + 青蓝高亮」改为与我的世界官网一致的深蓝底 #0f172a，卡片改成白色玻璃卡（半透明白 + 背景模糊 + 20px 圆角 + 统一投影），主按钮换成绿色渐变，下载按钮改成金色渐变，字体统一为 Segoe UI 字体栈；页面右上角的青色光斑改为右下角粉色光斑。栏目、文字、表单字段与交互都没有改动。</p>
