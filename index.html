@@ -6,7 +6,7 @@
   <title>打粥社 · 三角洲行动工作室</title>
   <meta name="description" content="打粥社专注于三角洲行动游戏内容、战术资讯与玩家社区。">
   <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
-  <link rel="stylesheet" href="styles.css?v=9">
+  <link rel="stylesheet" href="styles.css?v=10">
 </head>
 <body>
   <div class="page-bg"></div>
@@ -163,7 +163,7 @@
             </div>
           </div>
 
-          <form class="fb-form" id="fb-form">
+          <form class="fb-form" id="fb-form" novalidate>
             <div class="fb-group">
               <label for="fb-name">您的昵称</label>
               <input id="fb-name" name="name" type="text" placeholder="怎么称呼你" required>
@@ -174,7 +174,7 @@
             </div>
             <div class="fb-group">
               <label for="fb-subject">主题</label>
-              <select id="fb-subject" name="subject">
+              <select id="fb-subject" name="subject" required>
                 <option value="bug">Bug反馈</option>
               </select>
             </div>
@@ -283,10 +283,49 @@
         });
       }
 
+      /* 必填与邮箱格式：不填完整、邮箱写错都不许发送 */
+      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+      function clearInvalid(el) {
+        if (!el) return;
+        el.classList.remove('is-invalid');
+        el.removeAttribute('aria-invalid');
+        var ed = el.closest ? el.closest('.fb-editor') : null;
+        if (ed) ed.classList.remove('is-invalid');
+      }
+
+      function bad(el, msg) {
+        if (el) {
+          el.classList.add('is-invalid');
+          el.setAttribute('aria-invalid', 'true');
+          var ed = el.closest ? el.closest('.fb-editor') : null;
+          if (ed) ed.classList.add('is-invalid');
+          el.focus();
+        }
+        tip(msg);
+        return false;
+      }
+
+      function checkForm() {
+        if (!nameEl || !nameEl.value.trim()) return bad(nameEl, '昵称还没填');
+        var mail = emailEl ? emailEl.value.trim() : '';
+        if (!mail) return bad(emailEl, '邮箱还没填');
+        if (!EMAIL_RE.test(mail)) return bad(emailEl, '邮箱格式不对，检查一下');
+        if (!subjectEl || subjectEl.selectedIndex < 0) return bad(subjectEl, '主题还没选');
+        if (!box.value.trim()) return bad(box, '详细内容还没写');
+        return true;
+      }
+
+      [nameEl, emailEl, subjectEl, box].forEach(function (el) {
+        if (!el) return;
+        el.addEventListener('input', function () { clearInvalid(el); });
+        el.addEventListener('change', function () { clearInvalid(el); });
+      });
+
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        if (!box.value.trim()) { tip('先写两句再提交'); box.focus(); return; }
         if (sendBtn.disabled) return;
+        if (!checkForm()) return;
         sendBtn.disabled = true;
         tip('正在提交…');
 

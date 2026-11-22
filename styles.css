@@ -737,6 +737,13 @@ body {
   box-shadow: 0 0 0 3px rgba(110, 231, 255, 0.18);
 }
 .fb-group select option { background: #0b1324; color: #f3f5f9; }
+.fb-group input.is-invalid,
+.fb-group select.is-invalid,
+.fb-group textarea.is-invalid,
+.fb-editor.is-invalid {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.18);
+}
 .fb-editor {
   background: rgba(5, 8, 15, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.12);
