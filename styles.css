@@ -655,3 +655,79 @@ body {
   .gallery-search { flex: 1; min-width: 0; }
   .gallery-search .search-input { width: 100%; }
 }
+
+/* 意见反馈：填完直接提交，由 FormSubmit 转发到两个邮箱，访客不用登录任何账号 */
+.feedback-box {
+  max-width: 720px;
+  margin: 2.5rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+}
+.feedback-box h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: #6ee7ff;
+}
+.feedback-sub {
+  margin: 0 0 1rem;
+  color: rgba(226, 232, 240, 0.78);
+  line-height: 1.7;
+}
+.feedback-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: rgba(207, 232, 255, 0.6);
+  font-size: 0.9rem;
+}
+#fb-text {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(5, 8, 15, 0.6);
+  color: #f3f5f9;
+  font: inherit;
+  line-height: 1.6;
+  resize: vertical;
+}
+#fb-text:focus {
+  outline: 2px solid rgba(110, 231, 255, 0.5);
+  outline-offset: 1px;
+}
+.feedback-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.fb-btn {
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: transparent;
+  color: #f3f5f9;
+  font: inherit;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.fb-btn:hover { border-color: rgba(110, 231, 255, 0.6); }
+.fb-btn--primary {
+  border-color: transparent;
+  background: linear-gradient(135deg, #6ee7ff, #3ba8c8);
+  color: #041018;
+  font-weight: 700;
+}
+.fb-btn:disabled { opacity: 0.6; cursor: default; }
+.feedback-tip {
+  min-height: 1.4em;
+  margin: 0.6rem 0 0;
+  color: #6ee7ff;
+  font-size: 0.9rem;
+}
+@media (max-width: 720px) {
+  .feedback-actions .fb-btn { flex: 1 1 100%; }
+}

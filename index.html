@@ -6,7 +6,7 @@
   <title>打粥社 · 三角洲行动工作室</title>
   <meta name="description" content="打粥社专注于三角洲行动游戏内容、战术资讯与玩家社区。">
   <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
 </head>
 <body>
   <div class="page-bg"></div>
@@ -145,11 +145,111 @@
             <span>QQ号:2365699927</span>
           </div>
         </div>
+        <div class="feedback-box">
+          <h3>意见反馈</h3>
+          <p class="feedback-sub">网址打不开、想加个链接、手机上哪儿别扭 —— 写在这儿直接提交，会同时发到两个邮箱，不用登录任何账号。</p>
+          <label class="feedback-label" for="fb-text">想说的话</label>
+          <textarea id="fb-text" rows="4" placeholder="例如：三角洲备用 2 打不开了；想加一个 B 站主页；手机上看字太小"></textarea>
+          <div class="feedback-actions">
+            <button type="button" class="fb-btn fb-btn--primary" id="fb-send">直接提交</button>
+            <button type="button" class="fb-btn" id="fb-copy">复制内容，自己发我</button>
+          </div>
+          <p class="feedback-tip" id="fb-tip" role="status" aria-live="polite"></p>
+        </div>
       </div>
     </section>
   </main>
   <footer class="site-footer">
     <div class="container">© 2026 打粥社 · 三角洲行动玩家工作室</div>
   </footer>
+  <!-- 意见反馈：页面纯静态，交给 FormSubmit 转发到两个邮箱，访客不用登录 -->
+  <script>
+    (function () {
+      var ENDPOINTS = [
+        'https://formsubmit.co/ajax/guaidao1412_1996@163.com',
+        'https://formsubmit.co/ajax/2365699927@qq.com'
+      ];
+      var box = document.getElementById('fb-text');
+      var sendBtn = document.getElementById('fb-send');
+      var copyBtn = document.getElementById('fb-copy');
+      var tipEl = document.getElementById('fb-tip');
+      if (!box || !sendBtn) return;
+
+      function tip(msg) { if (tipEl) tipEl.textContent = msg || ''; }
+
+      function stamp() {
+        var d = new Date();
+        var p = function (n) { return String(n).length < 2 ? '0' + n : String(n); };
+        return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+      }
+
+      sendBtn.addEventListener('click', function () {
+        if (sendBtn.disabled) return;
+        var text = box.value.trim();
+        if (!text) { tip('先写两句再提交'); box.focus(); return; }
+        sendBtn.disabled = true;
+        tip('正在提交…');
+
+        var payload = {
+          '内容': text,
+          '_subject': '【三角洲官网反馈】' + text.replace(/\s+/g, ' ').slice(0, 24),
+          '_captcha': 'false',
+          '_template': 'table',
+          '页面': location.href,
+          '时间': stamp()
+        };
+        var jobs = ENDPOINTS.map(function (url) {
+          return fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(payload)
+          }).then(function (res) { return res.json(); })
+            .then(function (data) { return String(data.success) === 'true'; })
+            .catch(function () { return false; });
+        });
+
+        Promise.all(jobs).then(function (results) {
+          sendBtn.disabled = false;
+          var ok = 0;
+          for (var i = 0; i < results.length; i++) { if (results[i]) ok++; }
+          if (ok === results.length) {
+            box.value = '';
+            tip('已提交，两个邮箱都会收到');
+          } else if (ok > 0) {
+            box.value = '';
+            tip('已提交，但有一个邮箱没送达');
+          } else {
+            tip('两个邮箱都没送达，先复制内容发我');
+          }
+        });
+      });
+
+      if (copyBtn) {
+        copyBtn.addEventListener('click', function () {
+          var text = box.value.trim();
+          if (!text) { tip('先写两句再复制'); box.focus(); return; }
+          var full = text + '\n\n—— 来自 ' + location.href + '  ' + stamp();
+          var done = function () { tip('已复制，粘贴到 QQ 发我就行'); };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(full).then(done, function () { fallback(full); });
+          } else {
+            fallback(full);
+          }
+          function fallback(str) {
+            var ta = document.createElement('textarea');
+            ta.value = str;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            var ok = false;
+            try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+            document.body.removeChild(ta);
+            tip(ok ? '已复制，粘贴到 QQ 发我就行' : '复制失败，请手动选中复制');
+          }
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
