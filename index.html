@@ -201,13 +201,10 @@
   <footer class="site-footer">
     <div class="container">© 2026 打粥社 · 三角洲行动玩家工作室</div>
   </footer>
-  <!-- 意见反馈：版式沿用我的世界官网的「联系我们」，页面纯静态，交给 FormSubmit 转发到两个邮箱 -->
+  <!-- 意见反馈：版式沿用我的世界官网的「联系我们」，页面纯静态，交给 FormSubmit 转发到团队 QQ 邮箱 -->
   <script>
     (function () {
-      var ENDPOINTS = [
-        'https://formsubmit.co/ajax/guaidao1412_1996@163.com',
-        'https://formsubmit.co/ajax/2365699927@qq.com'
-      ];
+      var ENDPOINTS = ['https://formsubmit.co/ajax/2365699927@qq.com'];
       var form = document.getElementById('fb-form');
       var box = document.getElementById('fb-text');
       var tipEl = document.getElementById('fb-tip');
@@ -341,31 +338,25 @@
         fd.append('_template', 'table');
         files.forEach(function (f, i) { fd.append('附件' + (i + 1), f, f.name); });
 
-        var jobs = ENDPOINTS.map(function (url) {
-          return fetch(url, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } })
-            .then(function (res) { return res.json(); })
-            .then(function (data) { return String(data.success) === 'true'; })
-            .catch(function () { return false; });
-        });
+        fetch(ENDPOINTS[0], { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } })
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            sendBtn.disabled = false;
+            if (String(data.success) === 'true') {
+              form.reset();
+              files = [];
+              renderPreview();
+              tip('已提交，QQ 邮箱会收到');
+            } else {
+              tip('没送达，点下面「复制内容」发我');
+            }
+          })
+          .catch(function () {
+            sendBtn.disabled = false;
+            tip('没送达，点下面「复制内容」发我');
+          });
 
-        Promise.all(jobs).then(function (results) {
-          sendBtn.disabled = false;
-          var ok = 0;
-          for (var i = 0; i < results.length; i++) { if (results[i]) ok++; }
-          if (ok === results.length) {
-            form.reset();
-            files = [];
-            renderPreview();
-            tip('已提交，两个邮箱都会收到');
-          } else if (ok > 0) {
-            form.reset();
-            files = [];
-            renderPreview();
-            tip('已提交，但有一个邮箱没送达');
-          } else {
-            tip('两个邮箱都没送达，点下面「复制内容」发我');
-          }
-        });
+        
       });
 
       if (copyBtn) {
